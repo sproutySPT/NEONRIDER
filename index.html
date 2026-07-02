@@ -193,8 +193,6 @@
   }
   .overlay .skyline svg{width:100%;height:100%;display:block}
 
-  .overlay .scanline{display:none !important;}
-
   .overlay .noise{
     position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.5;
     background:repeating-linear-gradient(0deg, rgba(255,255,255,.022) 0 1px, transparent 1px 3px);
@@ -309,6 +307,10 @@
     background:linear-gradient(135deg,rgba(255,80,0,.96),rgba(200,0,50,.96));
     box-shadow:0 8px 24px rgba(255,80,0,.3);
   }
+  .start-btn.endless-mode-btn{
+    background:linear-gradient(135deg,rgba(255,176,32,.96),rgba(138,43,226,.9));
+    box-shadow:0 8px 24px rgba(255,176,32,.3);
+  }
   .footerhint{margin-top:10px;font-size:11px;opacity:.5}
 
   .menu-logo{display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:8px}
@@ -415,8 +417,8 @@
     box-shadow:0 0 18px rgba(255,80,0,.2);color:#ff5020;
   }
   .mode-tab.endless-tab.active{
-    border-color:rgba(57,255,20,.5);background:rgba(57,255,20,.1);
-    box-shadow:0 0 18px rgba(57,255,20,.2);color:#39ff14;
+    border-color:rgba(255,176,32,.5);background:rgba(255,176,32,.1);
+    box-shadow:0 0 18px rgba(255,176,32,.2);color:#ffb020;
   }
 
   .menu-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
@@ -443,6 +445,26 @@
 
   .shop-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:14px;flex-wrap:wrap}
   .shop-head p{margin:0;font-size:12px;line-height:1.5;opacity:.75;text-align:left;flex:1 1 200px}
+  .shop-unlock-box{
+    width:100%;margin:10px 0 12px;padding:12px 12px 10px;border-radius:16px;
+    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+    text-align:left
+  }
+  .shop-unlock-label{font-size:11px;opacity:.65;letter-spacing:.8px;margin-bottom:8px}
+  .shop-unlock-row{display:flex;gap:8px;flex-wrap:wrap}
+  .shop-unlock-input{
+    flex:1 1 180px;min-width:0;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.14);
+    background:rgba(0,0,0,.35);color:var(--text);font-size:14px;letter-spacing:1px;
+  }
+  .shop-unlock-input:focus{outline:none;border-color:rgba(0,255,213,.5)}
+  .shop-unlock-btn{
+    padding:12px 16px;border:none;border-radius:12px;font-weight:900;letter-spacing:.7px;color:#fff;
+    background:linear-gradient(135deg,rgba(0,255,213,.92),rgba(138,43,226,.92))
+  }
+  .shop-unlock-note{margin-top:8px;font-size:11px;line-height:1.5;opacity:.72;color:#fff7c6}
+  .shop-unlock-msg{margin-top:8px;font-size:12px;min-height:1.2em;opacity:.85}
+  .shop-unlock-msg.ok{color:#39ff14}
+  .shop-unlock-msg.err{color:#ff1978}
   .shop-balance{
     min-width:96px;padding:10px 12px;border-radius:16px;text-align:center;
     background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
@@ -544,48 +566,6 @@
     .stage-grid{max-height:min(52vh, 52dvh)}
     .shop-grid{grid-template-columns:repeat(2,1fr)}
   }
-
-  /* polished pass */
-  .overlay{
-    backdrop-filter:blur(12px) saturate(1.08);
-  }
-  .panel h1{
-    font-size:38px;
-    letter-spacing:5px;
-    text-shadow:0 0 28px rgba(255,25,120,.34), 0 0 42px rgba(0,255,213,.12);
-  }
-  .mode-tab,.start-btn,.settings-toggle,.hud-btn,.shop-buy,.rider-modal-btn,.nav-back{
-    border-radius:18px;
-    letter-spacing:.7px;
-    box-shadow:0 10px 28px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.08);
-  }
-  .char-card,.stage-card,.shop-card,.rider-modal-card,.arena-drawer-inner,.topbar .chip,.life-wrap{
-    background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.035));
-    border-color:rgba(255,255,255,.12);
-    box-shadow:0 12px 34px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.04);
-    backdrop-filter:blur(10px);
-  }
-  .char-card.active,.stage-card.active,.shop-card.active{
-    transform:translateY(-4px) scale(1.01);
-    box-shadow:0 16px 38px rgba(0,0,0,.36), 0 0 22px rgba(0,255,213,.08);
-  }
-  .char-card:hover,.stage-card:hover,.shop-card:hover,.start-btn:hover,.mode-tab:hover,.hud-btn:hover{
-    transform:translateY(-1px);
-  }
-  .fire-btn,.ult-btn,.special-btn{
-    border-width:1px;
-    box-shadow:0 0 26px rgba(255,25,120,.24), inset 0 0 18px rgba(255,255,255,.12);
-  }
-  .ult-btn.ready,.special-btn.ready{
-    animation-duration:700ms;
-  }
-  .boss-hpbar-track{
-    height:13px;
-    box-shadow:inset 0 0 10px rgba(0,0,0,.28);
-  }
-  .boss-hpbar-fill{
-    box-shadow:0 0 14px rgba(255,25,120,.7), 0 0 28px rgba(255,176,32,.18);
-  }
 </style>
 </head>
 <body>
@@ -677,7 +657,6 @@
           </g>
         </svg>
       </div>
-      <div class="scanline"></div>
       <div class="panel" id="panel">
 
         <!-- HOME SCREEN -->
@@ -690,12 +669,12 @@
           <div class="mode-tabs">
             <button class="mode-tab active" id="modeNormalTab">⚡ 일반</button>
             <button class="mode-tab boss-tab" id="modeBossTab">💀 보스전</button>
-            <button class="mode-tab endless-tab" id="modeEndlessTab">∞ 엔드리스</button>
+            <button class="mode-tab endless-tab" id="modeEndlessTab">♾️ 엔드리스</button>
           </div>
           <div class="menu-buttons">
             <button class="start-btn" id="startBtn">PLAY</button>
             <button class="start-btn secondary" id="riderBtn">RIDER</button>
-            <button class="start-btn secondary" id="shopOpenBtn">DAILY</button>
+            <button class="start-btn secondary" id="shopOpenBtn">SHOP</button>
             <button class="start-btn secondary" id="challengeOpenBtn">ACHIEV</button>
             <button class="start-btn secondary" id="settingsOpenBtn">SETTING</button>
           </div>
@@ -786,14 +765,23 @@
         </section>
 
         <!-- SHOP SCREEN -->
-        <section class="screen" id="screen-daily" data-screen="daily">
+        <section class="screen" id="screen-shop" data-screen="shop">
           <div class="screen-nav">
             <button class="nav-back" id="shopBackBtn">‹ BACK</button>
-            <h2 class="screen-title">DAILY</h2>
+            <h2 class="screen-title">SHOP</h2>
           </div>
           <div class="shop-head">
-            <p>30일 출석 보상 트랙입니다. 매일 하나씩 수령하고 10일, 20일, 30일의 보상을 챙기세요.</p>
-            <div class="shop-balance">DAY <span id="shopCoinsText">1/30</span></div>
+            <p>코인으로 스킨을 구매하고 장착해 라이더를 꾸며보세요.</p>
+            <div class="shop-balance">COINS <span id="shopCoinsText">0</span></div>
+          </div>
+                    <div class="shop-unlock-box">
+            <div class="shop-unlock-label">코드 해금</div>
+            <div class="shop-unlock-row">
+              <input type="text" id="shopUnlockInput" class="shop-unlock-input" placeholder="코드 입력" autocomplete="off" />
+              <button class="shop-unlock-btn" id="shopUnlockBtn">해금</button>
+            </div>
+            <div class="shop-unlock-note">개발자 전용 간지나는 스페셜 스킨을 얻을수있습니다. 코드를 안다면요!</div>
+            <div class="shop-unlock-msg" id="shopUnlockMsg"></div>
           </div>
           <div class="shop-grid" id="shopGrid"></div>
         </section>
@@ -1024,15 +1012,6 @@ demo version by 정새싹게임즈's 염시우</div>
     ]),
     rapper_shoot: () => playTone({ type:'triangle', freq:680, freq2:360, duration:0.08, volume:0.1, attack:0.002 }),
     rapper_ult: () => playTone({ noise:true, filterType:'bandpass', filterFreq:900, duration:0.28, volume:0.22, attack:0.002 }),
-    circuit_shoot: () => playChord([
-      { type:'square', freq:740, freq2:1180, duration:0.06, volume:0.08, delay:0 },
-      { type:'square', freq:980, freq2:1560, duration:0.06, volume:0.08, delay:18 }
-    ]),
-    circuit_ult: () => playChord([
-      { type:'sawtooth', freq:220, freq2:880, duration:0.22, volume:0.12, delay:0 },
-      { type:'sawtooth', freq:330, freq2:1320, duration:0.22, volume:0.11, delay:40 },
-      { type:'square', freq:660, freq2:1760, duration:0.22, volume:0.10, delay:80 }
-    ]),
 
     // 공통 효과음
     // 적 피격: 작고 부드러운 짧은 딩~ (sine 삼각파, 음량 낮게)
@@ -1114,11 +1093,14 @@ demo version by 정새싹게임즈's 염시우</div>
   const arenaModeText = document.getElementById('arenaModeText');
   const menuBtn = document.getElementById('menuBtn');
   const challengeOpenBtn = document.getElementById('challengeOpenBtn');
-  const shopOpenBtn = document.getElementById('shopOpenBtn');
   const challengeGrid = document.getElementById('challengeGrid');
   const challengeCompleteText = document.getElementById('challengeCompleteText');
   const shopGrid = document.getElementById('shopGrid');
   const shopCoinsText = document.getElementById('shopCoinsText');
+  const shopUnlockInput = document.getElementById('shopUnlockInput');
+  const shopUnlockBtn = document.getElementById('shopUnlockBtn');
+  const shopUnlockMsg = document.getElementById('shopUnlockMsg');
+  const shopOpenBtn = document.getElementById('shopOpenBtn');
   const shopBackBtn = document.getElementById('shopBackBtn');
   const challengeBackBtn = document.getElementById('challengeBackBtn');
   const riderBtn = document.getElementById('riderBtn');
@@ -1171,8 +1153,8 @@ demo version by 정새싹게임즈's 염시우</div>
     home: document.getElementById('screen-home'),
     stage: document.getElementById('screen-stage'),
     rider: document.getElementById('screen-rider'),
-    shop: document.getElementById('screen-daily'),
     challenges: document.getElementById('screen-challenges'),
+    shop: document.getElementById('screen-shop'),
     settings: document.getElementById('screen-settings')
   };
 
@@ -1198,29 +1180,28 @@ demo version by 정새싹게임즈's 염시우</div>
   // ── 게임 모드: 'normal' | 'boss' | 'endless' ──
   let gameMode = 'normal';
 
+  function setActiveModeTab(tab) {
+    [modeNormalTab, modeBossTab, modeEndlessTab].forEach(el => { if (el) el.classList.remove('active'); });
+    if (tab) tab.classList.add('active');
+  }
+
   modeNormalTab.addEventListener('click', () => {
     gameMode = 'normal';
-    modeNormalTab.classList.add('active');
-    modeBossTab.classList.remove('active');
-    modeEndlessTab.classList.remove('active');
+    setActiveModeTab(modeNormalTab);
     startBtn.className = 'start-btn';
     startBtn.textContent = 'PLAY';
   });
   modeBossTab.addEventListener('click', () => {
     gameMode = 'boss';
-    modeBossTab.classList.add('active');
-    modeNormalTab.classList.remove('active');
-    modeEndlessTab.classList.remove('active');
+    setActiveModeTab(modeBossTab);
     startBtn.className = 'start-btn boss-mode-btn';
     startBtn.textContent = '💀 BOSS BATTLE';
   });
-  modeEndlessTab.addEventListener('click', () => {
+  if (modeEndlessTab) modeEndlessTab.addEventListener('click', () => {
     gameMode = 'endless';
-    modeEndlessTab.classList.add('active');
-    modeNormalTab.classList.remove('active');
-    modeBossTab.classList.remove('active');
-    startBtn.className = 'start-btn';
-    startBtn.textContent = '∞ ENDLESS';
+    setActiveModeTab(modeEndlessTab);
+    startBtn.className = 'start-btn endless-mode-btn';
+    startBtn.textContent = '🌀 ENDLESS RUN';
   });
 
 
@@ -1228,114 +1209,25 @@ demo version by 정새싹게임즈's 염시우</div>
     { id: 'skin-default', type: 'skin', name: 'BASE NEON', rarity: 'FREE', cost: 0, color: '#00ffd5', desc: '기본 네온 스킨', value: '#00ffd5' },
     { id: 'skin-rose', type: 'skin', name: 'ROSE EDGE', rarity: 'SKIN', cost: 80, color: '#ff1978', desc: '핑크 글로우 스킨', value: '#ff4f97' },
     { id: 'skin-ice', type: 'skin', name: 'ICE DRIVE', rarity: 'SKIN', cost: 120, color: '#6ee7ff', desc: '시원한 아이스 스킨', value: '#6ee7ff' },
-    { id: 'effect-prism', type: 'effect', name: 'PRISM FX', rarity: 'FX', cost: 100, color: '#8a2be2', desc: '이펙트가 프리즘처럼 번짐', value: 'prism' },
-    { id: 'effect-glitch', type: 'effect', name: 'GLITCH FX', rarity: 'FX', cost: 140, color: '#f7ff66', desc: '왜곡과 잔상이 강해짐', value: 'glitch' },
-    { id: 'effect-pulse', type: 'effect', name: 'PULSE FX', rarity: 'FX', cost: 180, color: '#ffb020', desc: '폭발과 충격파가 더 선명', value: 'pulse' },
-    { id: 'trail-comet', type: 'trail', name: 'COMET TRAIL', rarity: 'TRAIL', cost: 90, color: '#00ffd5', desc: '긴 꼬리를 남기는 트레일', value: 'comet' },
-    { id: 'trail-shadow', type: 'trail', name: 'SHADOW TRAIL', rarity: 'TRAIL', cost: 130, color: '#8a2be2', desc: '어두운 실루엣 잔상', value: 'shadow' },
-    { id: 'trail-prism', type: 'trail', name: 'PRISM TRAIL', rarity: 'TRAIL', cost: 170, color: '#ff1978', desc: '각진 프리즘 조각 트레일', value: 'prism' }
+    { id: 'skin-summer', type: 'skin', name: '여름나기', rarity: 'SKIN', cost: 180, color: '#39ff14', desc: '청량한 초록빛 여름 스킨', value: '#39ff14', aura: '#39ff14' },
+    { id: 'skin-jsg', type: 'skin', name: '정새싹게임즈', rarity: 'SKIN', cost: 260, color: '#d0ccff', desc: '정새싹게임즈 시그니처 퍼플 스킨', value: '#D0CCFF' },
+    { id: 'skin-danger', type: 'skin', name: '위험인물', rarity: 'SKIN', cost: 420, color: '#ffb020', desc: '빨강과 노랑이 서서히 교차하는 스킨', value: '#ff1978', alt: '#ffcc00', mode: 'danger' },
+    { id: 'skin-ultimate', type: 'skin', name: '얼티밋마스터-정지호 스페셜', rarity: 'LEGEND', cost: 999999999, color: '#ffffff', desc: '무지개빛으로 빛나는 초고가 최상위 스킨', value: '#ffffff', mode: 'rainbow', unlockCode: 'jjh' },
+    { id: 'skin-aurora', type: 'skin', name: '오로라 스트림', rarity: 'SKIN', cost: 300, color: '#8a2be2', desc: '보랏빛과 민트가 번지는 스킨', value: '#8bf7ff' },
+    { id: 'skin-gold', type: 'skin', name: '이정후 스페셜', rarity: 'SECRET', cost: 0, color: '#ffd36a', desc: '빛나는 황금 그라데이션 스킨', value: '#fff3d6', alt: '#d8a73a', mode: 'gold', unlockCode: 'ljh' },
+    { id: 'skin-ysy', type: 'skin', name: '염시우 스페셜', rarity: 'SECRET', cost: 0, color: '#a07a4d', desc: '연한 똥색과 진한 똥색이 반복되는 비밀 스킨', value: '#d8b07a', alt: '#7a542c', mode: 'poop', unlockCode: 'ysy' }
   ];
 
   const SHOP_ITEMS = COSMETIC_ITEMS;
-
-  const DAILY_REWARDS = Array.from({ length: 30 }, (_, i) => {
-    const day = i + 1;
-    let reward;
-    if (day === 10) reward = { type: 'max-rider', title: '원하는 라이더 1명 만렙', desc: '선택한 라이더의 레벨을 LV.7로 올립니다.' };
-    else if (day === 20) reward = { type: 'coins', amount: 500, title: '500 COINS', desc: '코인 500개를 받습니다.' };
-    else if (day === 30) reward = { type: 'character', id: 'char-circuit', title: 'CIRCUIT 해금', desc: '새로운 드론 소환형 라이더 CIRCUIT을 얻습니다.' };
-    else {
-      const coins = [30, 30, 40, 40, 50, 50, 60, 60, 70, 80, 80, 90, 90, 100, 100, 120, 120, 150, 150, 150, 160, 160, 180, 180, 200, 200, 220, 220, 240][i < 9 ? i : Math.max(0, i - 1)];
-      reward = { type: 'coins', amount: coins || (30 + day * 8), title: `COINS +${coins || (30 + day * 8)}`, desc: '조금씩 쌓이는 네온 포인트.' };
-    }
-    return { day, ...reward };
-  });
-
-  function localDateKey(d = new Date()) {
-    const y = d.getFullYear();
-    const m = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    return `${y}-${m}-${day}`;
-  }
-
-  function ensureDailyState() {
-    if (!saveData.daily) saveData.daily = structuredClone(DEFAULT_SAVE.daily);
-    if (!saveData.daily.claimedDays) saveData.daily.claimedDays = {};
-    if (!saveData.daily.day) saveData.daily.day = 1;
-    if (saveData.daily.day > 30) saveData.daily.day = 30;
-  }
-
-  function currentDailyDay() {
-    ensureDailyState();
-    return clamp(Number(saveData.daily.day || 1), 1, 30);
-  }
-
-  function hasClaimedDaily(day) {
-    ensureDailyState();
-    return !!saveData.daily.claimedDays[String(day)];
-  }
-
-  function setDailyClaimed(day) {
-    ensureDailyState();
-    saveData.daily.claimedDays[String(day)] = true;
-  }
-
-  function grantMaxRider() {
-    const choices = Object.values(CHARACTERS).map(c => `${c.id} (${c.name})`).join('\n');
-    const input = window.prompt(`만렙으로 만들 라이더를 입력하세요.
-
-${choices}`, getBattleCharId());
-    if (input == null) return null;
-    const q = String(input).trim().toLowerCase();
-    const found = Object.values(CHARACTERS).find(c => c.id.toLowerCase() === q || c.name.toLowerCase() === q);
-    if (!found) {
-      announce('올바른 라이더를 입력하세요.', 80);
-      return null;
-    }
-    saveData.riderLevels[found.id] = 7;
-    if (found.unlockId) saveData.owned[found.unlockId] = true;
-    if (selectedChar === found.id || saveData.equipped.character === found.id) {
-      syncEquippedState();
-    }
-    return found;
-  }
-
-  function claimDailyReward() {
-    ensureDailyState();
-    const today = localDateKey();
-    if (saveData.daily.lastClaimDate === today) {
-      announce('오늘은 이미 출석했어요.', 80);
-      return false;
-    }
-    const day = currentDailyDay();
-    const reward = DAILY_REWARDS[day - 1];
-    if (!reward) return false;
-
-    if (reward.type === 'max-rider') {
-      const chosen = grantMaxRider();
-      if (!chosen) return false;
-      saveData.daily.claimedDays[String(day)] = true;
-      announce(`DAY ${day} 완료! ${chosen.name} 만렙!`, 150);
-    } else if (reward.type === 'coins') {
-      addCoins(reward.amount);
-      setDailyClaimed(day);
-      announce(`DAY ${day} +${reward.amount} COINS`, 120);
-    } else if (reward.type === 'character') {
-      saveData.owned[reward.id] = true;
-      setDailyClaimed(day);
-      buildCharGrid();
-      announce('DAY 30! CIRCUIT 해금!', 160);
-    }
-
-    saveData.daily.lastClaimDate = today;
-    saveData.daily.day = Math.min(30, day + 1);
-    persistSave();
-    if (typeof renderShop === 'function') renderShop();
-    if (typeof buildCharGrid === 'function') buildCharGrid();
-    return true;
-  }
+  const HIDDEN_DEFAULT_EFFECT = { id: 'effect-prism', type: 'effect', value: 'prism' };
+  const HIDDEN_DEFAULT_TRAIL = { id: 'trail-comet', type: 'trail', value: 'comet' };
 
   const SAVE_KEY = 'neon_riders_shop_v3';
+  const SHOP_UNLOCK_CODES = {
+    ljh: 'skin-gold',
+    ysy: 'skin-ysy',
+    jjh: 'skin-ultimate'
+  };
   const RIDER_UPGRADE_COSTS = [0, 60, 140, 240, 360, 500, 680];
   const RIDER_UPGRADE_ORDER = [
     'LV.1 기본',
@@ -1354,8 +1246,7 @@ ${choices}`, getBattleCharId());
     sprouty: 'seed · 돌면서 작은 탄을 계속 흩뿌립니다.',
     lemon: '아이셔 · 맵 내부의 모든 적들을 넉백으로 밀어버립니다.',
     jungle: '덩굴 · 주위 적들을 덩굴로 감싸서 꼼짝 못하게 합니다.',
-    rapper: '플렉스 · 거대한 동전을 던집니다.',
-    circuit: '오버클럭 · 드론의 발사 속도가 2배가 됩니다.'
+    rapper: '플렉스 · 거대한 동전을 던집니다.'
   };
 
   // ──────────────────────────────────────────────
@@ -1428,15 +1319,6 @@ ${choices}`, getBattleCharId());
       desc: '코인 탄막으로 적을 밀어내고 체인 궁극기로 맵을 쓸어버립니다.',
       ult: { key: 'chain', name: 'CHAIN', desc: '왼쪽에서 오른쪽으로 천천히 지나가는 체인이 모든 적을 베어냅니다.' }
     },
-    circuit: {
-      id: 'circuit', name: 'CIRCUIT', role: '드론 소환형',
-      color: '#cbd5e1', colorDark: '#0b1e3d',
-      weapon: 'circuit',
-      unlockId: 'char-circuit',
-      unlockHint: 'DAY 30',
-      desc: '미니드론 2기가 자동 사격하는 전기형 라이더. 오버클럭과 드론스웜으로 탄막을 폭증시킵니다.',
-      ult: { key: 'droneswarm', name: '드론스웜', desc: '미니드론 6기를 추가 소환해 화면을 전기톱처럼 갈아냅니다.' }
-    },
   };
 
   let selectedChar = 'volt';
@@ -1462,34 +1344,34 @@ ${choices}`, getBattleCharId());
   // ── 보스 스테이지 데이터 ──
   const BOSS_STAGES = [
     {
-      n: 1, name: 'GLITCH DAEMON', hp: 720, reward: 80,
+      n: 1, name: 'GLITCH DAEMON', hp: 480, reward: 90,
       color: '#ff1978', desc: '기본 탄막 패턴. 조준탄 + 산탄 + 소용돌이 탄막.',
       patterns: ['aimed', 'spread3', 'spiral']
     },
     {
-      n: 2, name: 'VOLT PHANTOM', hp: 980, reward: 120,
+      n: 2, name: 'VOLT PHANTOM', hp: 650, reward: 130,
       color: '#00ffd5', desc: '회전 탄막 + 조준탄 + 비탄막 낙하가 섞인다.',
       patterns: ['rotate', 'aimed', 'rain']
     },
     {
-      n: 3, name: 'CRIMSON WRAITH', hp: 1260, reward: 170,
+      n: 3, name: 'CRIMSON WRAITH', hp: 870, reward: 170,
       color: '#ff7b2f', desc: '빠른 크로스 패턴 + 집중탄 + 링탄이 겹친다.',
       patterns: ['cross', 'burst5', 'spiral', 'aimed']
     },
     {
-      n: 4, name: 'NEON LEVIATHAN', hp: 1720, reward: 230,
+      n: 4, name: 'NEON LEVIATHAN', hp: 1170, reward: 220,
       color: '#a855f7', desc: '격자 탄막 + 고속 회전 + 낙하탄이 이어진다.',
       patterns: ['grid', 'rotate_fast', 'rain', 'aimed']
     },
     {
-      n: 5, name: 'OMEGA CORE', hp: 2400, reward: 300,
-      color: '#f7ff66', desc: '모든 패턴이 혼합된 최종 보스.',
+      n: 5, name: 'OMEGA CORE', hp: 1580, reward: 280,
+      color: '#f7ff66', desc: '모든 패턴이 혼합된 궁극의 보스.',
       patterns: ['grid', 'burst5', 'cross', 'rotate_fast', 'spiral', 'rain', 'aimed']
     },
     {
-      n: 6, name: '정새싹', hp: 3200, reward: 380,
-      color: '#39ff14', desc: 'SPROUTY식 평타와 궁극기를 섞어 몰아치는 초고압 보스.',
-      patterns: ['sprouty_mix', 'spiral', 'aimed', 'sprouty_mix', 'burst5']
+      n: 6, name: '정새싹', hp: 2200, reward: 360,
+      color: '#39ff14', desc: 'SPROUTY의 평타와 궁극기를 뒤섞어 몰아치는 진짜 최종 보스.',
+      patterns: ['sprout_bat', 'sprout_heli', 'sprout_bat', 'aimed', 'sprout_heli']
     }
   ];
 
@@ -1514,17 +1396,17 @@ ${choices}`, getBattleCharId());
       sprouty: 1,
       lemon: 1,
       jungle: 1,
-      rapper: 1,
-      circuit: 1
+      rapper: 1
     },
     owned: {
       'skin-default': true,
+      'skin-gold': false,
+      'skin-ysy': false,
       'char-ember': false,
       'sprouty-unlock': false,
       'char-lemon': false,
       'char-jungle': false,
-      'char-rapper': false,
-      'char-circuit': false
+      'char-rapper': false
     },
     equipped: {
       skin: 'skin-default',
@@ -1543,10 +1425,10 @@ ${choices}`, getBattleCharId());
       normalClears: 0,
       bossClears: 0
     },
-    daily: {
-      day: 1,
-      lastClaimDate: '',
-      claimedDays: {}
+    endlessBest: {
+      kills: 0,
+      score: 0,
+      wave: 0
     }
   };
 
@@ -1566,19 +1448,21 @@ ${choices}`, getBattleCharId());
         bossCleared: parsed.bossCleared || {},
         challengeClaims: parsed.challengeClaims || {},
         stats: { ...DEFAULT_SAVE.stats, ...(parsed.stats || {}) },
-        daily: { ...DEFAULT_SAVE.daily, ...(parsed.daily || {}) }
+        endlessBest: { ...DEFAULT_SAVE.endlessBest, ...(parsed.endlessBest || {}) }
       };
     } catch (_) { return structuredClone(DEFAULT_SAVE); }
   }
 
   const saveData = loadSave();
   saveData.stats = { ...(DEFAULT_SAVE.stats || {}), ...(saveData.stats || {}) };
-  saveData.daily = { ...(DEFAULT_SAVE.daily || {}), ...(saveData.daily || {}) };
+  saveData.endlessBest = { ...(DEFAULT_SAVE.endlessBest || {}), ...(saveData.endlessBest || {}) };
   saveData.riderLevels = { ...DEFAULT_SAVE.riderLevels, ...(saveData.riderLevels || {}) };
-  saveData.daily = { ...(DEFAULT_SAVE.daily || {}), ...(saveData.daily || {}) };
-  ['char-ember','sprouty-unlock','char-lemon','char-jungle','char-rapper','char-circuit'].forEach(id => {
+  ['skin-gold','skin-ysy','char-ember','sprouty-unlock','char-lemon','char-jungle','char-rapper'].forEach(id => {
     saveData.owned[id] = false;
   });
+  if (!saveData.equipped.skin || !saveData.owned[saveData.equipped.skin]) {
+    saveData.equipped.skin = 'skin-default';
+  }
   if (saveData.devUnlocked) {
     Object.keys(CHARACTERS).forEach(id => {
       saveData.riderLevels[id] = 7;
@@ -1751,9 +1635,8 @@ ${choices}`, getBattleCharId());
     soundEnabled: !!saveData.soundEnabled,
     messageTimer: 0,
     paused: false,
-    // 보스전 / 엔드리스 전용
+    // 보스전 전용
     isBossMode: false,
-    isEndless: false,
     bossHp: 0,
     bossMaxHp: 0,
     bossPhase: 0,
@@ -1766,7 +1649,10 @@ ${choices}`, getBattleCharId());
     // 배트 스윙 (SPROUTY)
     batSwing: 0,
     batSwingDir: 0,
-    batCooldown: 0
+    batCooldown: 0,
+    // 엔드리스 모드 전용
+    isEndless: false,
+    endlessWaveTimer: 0
   };
 
   syncEquippedState();
@@ -1815,8 +1701,7 @@ ${choices}`, getBattleCharId());
         devUnlocked: saveData.devUnlocked,
         normalCleared: saveData.normalCleared,
         bossCleared: saveData.bossCleared,
-        challengeClaims: saveData.challengeClaims,
-        daily: saveData.daily
+        challengeClaims: saveData.challengeClaims
       }));
     } catch (_) {}
   }
@@ -1825,13 +1710,50 @@ ${choices}`, getBattleCharId());
     return COSMETIC_ITEMS.find(item => item.type === 'skin' && item.id === saveData.equipped.skin) || COSMETIC_ITEMS[0];
   }
   function currentEffectItem() {
-    return COSMETIC_ITEMS.find(item => item.type === 'effect' && item.id === saveData.equipped.effect) || COSMETIC_ITEMS[3];
+    return HIDDEN_DEFAULT_EFFECT;
   }
   function currentTrailItem() {
-    return COSMETIC_ITEMS.find(item => item.type === 'trail' && item.id === saveData.equipped.trail) || COSMETIC_ITEMS[6];
+    return HIDDEN_DEFAULT_TRAIL;
   }
 
-  function charColor() { return currentSkinItem().value || getBattleChar().color; }
+  function mixHex(a, b, t) {
+    const pa = a.replace('#', '');
+    const pb = b.replace('#', '');
+    const ar = parseInt(pa.slice(0, 2), 16), ag = parseInt(pa.slice(2, 4), 16), ab = parseInt(pa.slice(4, 6), 16);
+    const br = parseInt(pb.slice(0, 2), 16), bg = parseInt(pb.slice(2, 4), 16), bb = parseInt(pb.slice(4, 6), 16);
+    const r = Math.round(ar + (br - ar) * t).toString(16).padStart(2, '0');
+    const g = Math.round(ag + (bg - ag) * t).toString(16).padStart(2, '0');
+    const b2 = Math.round(ab + (bb - ab) * t).toString(16).padStart(2, '0');
+    return `#${r}${g}${b2}`;
+  }
+
+  function charColor() {
+    const skin = currentSkinItem();
+    if (skin?.id === 'skin-ultimate') {
+      return '#ff5fe0';
+    }
+    if (skin?.mode === 'rainbow') {
+      const hue = Math.floor(((performance.now() / 7) % 360));
+      return `hsl(${hue} 95% 68%)`;
+    }
+    if (skin?.mode === 'danger') {
+      const pulse = (Math.sin(performance.now() / 700) + 1) / 2;
+      return mixHex(skin.value || '#ff1978', skin.alt || '#ffcc00', pulse);
+    }
+    if (skin?.mode === 'shine') {
+      const pulse = (Math.sin(performance.now() / 220) + 1) / 2;
+      return mixHex(skin.value || '#ffd36a', '#ffffff', 0.28 + pulse * 0.38);
+    }
+    if (skin?.mode === 'gold') {
+      const pulse = (Math.sin(performance.now() / 180) + 1) / 2;
+      return mixHex('#fff7e1', '#e2a92e', 0.18 + pulse * 0.52);
+    }
+    if (skin?.mode === 'poop') {
+      const pulse = (Math.sin(performance.now() / 650) + 1) / 2;
+      return mixHex(skin.value || '#d8b07a', skin.alt || '#7a542c', pulse);
+    }
+    return skin.value || getBattleChar().color;
+  }
   function isCharUnlocked(id) {
     if (saveData.devUnlocked) return true;
     const c = CHARACTERS[id];
@@ -1900,22 +1822,22 @@ ${choices}`, getBattleCharId());
     scoreText.textContent = `SCORE ${state.score}`;
     coinText.textContent = `COINS ${saveData.coins}`;
     if (shopCoinsText) shopCoinsText.textContent = `${saveData.coins}`;
-    waveText.textContent = state.isEndless
-      ? `ENDLESS ${state.stage}`
-      : state.isBossMode
-        ? `BOSS ${state.stage}`
-        : `STAGE ${state.stage}`;
-    if (targetText) targetText.textContent = state.isEndless
-      ? '목표 ∞'
-      : state.isBossMode
-        ? `목표 ${BOSS_STAGES[clamp(state.stage - 1, 0, BOSS_STAGES.length - 1)].name}`
-        : `목표 ${state.stageTarget}`;
+    waveText.textContent = state.isBossMode
+      ? `BOSS ${state.stage}`
+      : state.isEndless
+      ? `WAVE ${state.stage}`
+      : `STAGE ${state.stage}`;
+    if (targetText) targetText.textContent = state.isBossMode
+      ? `목표 ${BOSS_STAGES[clamp(state.stage - 1, 0, BOSS_STAGES.length - 1)].name}`
+      : state.isEndless
+      ? `최고 ${(saveData.endlessBest && saveData.endlessBest.kills) || 0}`
+      : `목표 ${state.stageTarget}`;
     if (killText) {
-      // 보스전과 엔드리스에서는 잡은 수 대신 다른 목표를 보여줌
-      killText.style.display = (state.isBossMode || state.isEndless) ? 'none' : '';
-      if (!state.isBossMode && !state.isEndless) killText.textContent = `잡은수 ${state.stageProgress}`;
+      // 보스전에서는 잡은 수 대신 보스 HP 바를 별도로 표시하므로 숨김
+      killText.style.display = state.isBossMode ? 'none' : '';
+      if (!state.isBossMode) killText.textContent = `잡은수 ${state.stageProgress}`;
     }
-    if (arenaModeText) arenaModeText.textContent = state.isEndless ? 'ENDLESS' : state.isBossMode ? 'BOSS' : 'NORMAL';
+    if (arenaModeText) arenaModeText.textContent = state.isBossMode ? 'BOSS' : state.isEndless ? 'ENDLESS' : 'NORMAL';
     const hpMax = Math.max(1, Math.round(state.maxHp || 100));
     const hp = Math.max(0, Math.round(state.hp));
     const hpPct = Math.max(0, Math.min(100, Math.round((hp / hpMax) * 100)));
@@ -1953,11 +1875,23 @@ ${choices}`, getBattleCharId());
     }
   }
 
-  function shopOwned(id) { return saveData.devUnlocked || !!saveData.owned[id]; }
+  function shopOwned(id) { return !!saveData.owned[id]; }
+
+  function isCodeLockedItem(item) {
+    return !!item.unlockCode && !shopOwned(item.id);
+  }
 
   function equipShopItem(item) {
-    const owned = item.cost === 0 || shopOwned(item.id);
-    if (!owned) {
+    const owned = shopOwned(item.id);
+    if (isCodeLockedItem(item)) {
+      if (shopUnlockMsg) {
+        shopUnlockMsg.textContent = '비밀 코드로 해금해야 합니다.';
+        shopUnlockMsg.className = 'shop-unlock-msg err';
+      }
+      announce('비밀 해금 필요', 90);
+      return false;
+    }
+    if (!owned && item.cost > 0) {
       if (saveData.coins < item.cost) { announce('NOT ENOUGH COINS', 70); return false; }
       saveData.coins -= item.cost;
       saveData.owned[item.id] = true;
@@ -1982,35 +1916,31 @@ ${choices}`, getBattleCharId());
 
   function renderShop() {
     if (!shopGrid) return;
-    ensureDailyState();
     shopGrid.innerHTML = '';
-    const day = currentDailyDay();
-    if (shopCoinsText) shopCoinsText.textContent = `${day}/30`;
-    DAILY_REWARDS.forEach(item => {
-      const claimed = hasClaimedDaily(item.day);
-      const active = item.day === day && !claimed && saveData.daily.lastClaimDate !== localDateKey();
-      const done = claimed || item.day < day;
+    SHOP_ITEMS.forEach(item => {
+      if (item.rarity === 'SECRET' || item.id === 'skin-ultimate') return;
+      const owned = shopOwned(item.id);
+      const active = item.type === 'character'
+        ? saveData.equipped.character === item.value
+        : saveData.equipped[item.type] === item.id;
+      const lockedByCode = isCodeLockedItem(item);
+      const pillStyle = item.id === 'skin-gold'
+        ? 'background:linear-gradient(135deg,#fffdf4 0%, #ffe7a8 26%, #ffd35b 56%, #f3b81f 78%, #fff7d6 100%);color:#a87400;box-shadow:0 0 18px rgba(255,211,106,.8), inset 0 0 10px rgba(255,255,255,.45)'
+        : `background:${item.color}22;color:${item.color};box-shadow:0 0 16px ${item.color}55`;
       const card = document.createElement('div');
-      card.className = `shop-card${done ? ' active' : ''}`;
-      const badge = claimed ? '✓' : active ? '!' : item.day === day ? '☆' : '•';
-      const label = item.type === 'max-rider' ? 'LV.MAX' : item.type === 'character' ? 'RIDER' : 'COINS';
+      card.className = `shop-card${active ? ' active' : ''}${lockedByCode ? ' locked' : ''}`;
       card.innerHTML = `
         <div class="shop-card-top">
           <div>
-            <h3 style="color:${item.type === 'character' ? '#6ee7ff' : '#fff'}">DAY ${item.day}</h3>
-            <div class="meta">${item.title}</div>
+            <h3 style="color:${item.color}">${item.name}</h3>
+            <div class="meta">${item.rarity} · ${item.type.toUpperCase()}</div>
           </div>
-          <div class="shop-pill" style="background:${active ? '#39ff1422' : '#ffffff12'};color:${active ? '#39ff14' : '#fff'}">${badge}</div>
+          <div class="shop-pill" style="${pillStyle}">S</div>
         </div>
-        <p>${item.desc}</p>
-        <button class="shop-buy ${claimed ? 'owned' : ''}" ${active ? '' : 'disabled'}>${claimed ? '수령 완료' : active ? '출석하기' : item.day === day ? '오늘 대기' : 'LOCKED'}</button>
+        <p>${item.desc}${lockedByCode ? `<br><b style="color:${item.color}">비밀 해금 필요</b>` : ''}</p>
+        <button class="shop-buy ${owned ? 'owned' : ''}">${active ? 'EQUIPPED' : lockedByCode ? 'LOCKED' : owned ? 'EQUIP' : `BUY ${item.cost}`}</button>
       `;
-      const btn = card.querySelector('button');
-      btn.addEventListener('click', () => {
-        if (!active) return;
-        const ok = claimDailyReward();
-        if (ok) renderShop();
-      });
+      card.querySelector('button').addEventListener('click', () => equipShopItem(item));
       shopGrid.appendChild(card);
     });
   }
@@ -2065,8 +1995,6 @@ ${choices}`, getBattleCharId());
         return `<svg width="30" height="30" viewBox="0 0 30 30"><path d="M15 4 L24 15 L15 26 L6 15 Z" fill="${c.color}"/><circle cx="15" cy="15" r="4" fill="white"/></svg>`;
       case 'rapper':
         return `<svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="10" fill="none" stroke="${c.color}" stroke-width="2"/><path d="M8 10 L22 20" stroke="${c.color}" stroke-width="3"/><circle cx="10" cy="20" r="2" fill="${c.color}"/><circle cx="20" cy="10" r="2" fill="${c.color}"/></svg>`;
-      case 'circuit':
-        return `<svg width=\"30\" height=\"30\" viewBox=\"0 0 30 30\"><circle cx=\"15\" cy=\"15\" r=\"8\" fill=\"none\" stroke=\"${c.color}\" stroke-width=\"2\"/><circle cx=\"9\" cy=\"11\" r=\"2\" fill=\"${c.color}\"/><circle cx=\"21\" cy=\"11\" r=\"2\" fill=\"${c.color}\"/><circle cx=\"12\" cy=\"20\" r=\"2\" fill=\"${c.color}\"/><circle cx=\"18\" cy=\"20\" r=\"2\" fill=\"${c.color}\"/></svg>`;
       default:
         return '';
     }
@@ -2292,6 +2220,7 @@ ${choices}`, getBattleCharId());
   function openShop() {
     overlay.classList.add('show');
     renderShop();
+    setHud();
     showScreen('shop');
   }
 
@@ -2301,7 +2230,7 @@ ${choices}`, getBattleCharId());
     if (devAuthInput) devAuthInput.value = '';
     if (devAuthMsg) {
       if (saveData.devUnlocked) {
-        devAuthMsg.textContent = '✅ 개발자 인증됨 — 모든 라이더 만렙 상태';
+        devAuthMsg.textContent = '✅ 개발자 인증됨 — 코인과 라이더 강화 해금';
         devAuthMsg.className = 'dev-auth-msg ok';
       } else {
         devAuthMsg.textContent = '';
@@ -2318,6 +2247,7 @@ ${choices}`, getBattleCharId());
     const input = devAuthInput ? devAuthInput.value : '';
     if (input === DEV_AUTH_PASSWORD) {
       saveData.devUnlocked = true;
+      saveData.coins = 999999999;
       Object.keys(CHARACTERS).forEach(id => {
         saveData.riderLevels[id] = 7;
       });
@@ -2326,7 +2256,7 @@ ${choices}`, getBattleCharId());
       buildCharGrid();
       renderShop();
       setHud();
-      announce('🔓 개발자 인증 완료! 모든 라이더 만렙', 150);
+      announce('🔓 개발자 인증 완료! 999,999,999 코인 획득', 150);
     } else {
       if (devAuthMsg) {
         devAuthMsg.textContent = '비밀번호가 올바르지 않습니다.';
@@ -2335,6 +2265,41 @@ ${choices}`, getBattleCharId());
       if (devAuthInput) devAuthInput.value = '';
     }
   }
+  function tryShopUnlockCode() {
+    const code = (shopUnlockInput?.value || '').trim().toLowerCase();
+    if (!code) {
+      if (shopUnlockMsg) {
+        shopUnlockMsg.textContent = '코드를 입력해 주세요.';
+        shopUnlockMsg.className = 'shop-unlock-msg err';
+      }
+      return;
+    }
+    const itemId = SHOP_UNLOCK_CODES[code];
+    if (!itemId) {
+      if (shopUnlockMsg) {
+        shopUnlockMsg.textContent = '올바르지 않은 코드입니다.';
+        shopUnlockMsg.className = 'shop-unlock-msg err';
+      }
+      if (shopUnlockInput) shopUnlockInput.value = '';
+      return;
+    }
+    saveData.owned[itemId] = true;
+    const item = COSMETIC_ITEMS.find(x => x.id === itemId);
+    if (item?.type) {
+      saveData.equipped[item.type] = item.id;
+    }
+    persistSave();
+    renderShop();
+    buildCharGrid();
+    setHud();
+    if (shopUnlockMsg) {
+      shopUnlockMsg.textContent = `${item?.name || itemId} 해금 완료!`;
+      shopUnlockMsg.className = 'shop-unlock-msg ok';
+    }
+    if (shopUnlockInput) shopUnlockInput.value = '';
+    announce('UNLOCKED', 80);
+  }
+
   function toggleSound() {
     saveData.soundEnabled = !saveData.soundEnabled;
     state.soundEnabled = saveData.soundEnabled;
@@ -2368,8 +2333,8 @@ ${choices}`, getBattleCharId());
     panelH1.textContent = 'NEON RIDER';
     syncEquippedState();
     panelP.innerHTML = '캐릭터를 고르고 PLAY를 누르세요.';
-    startBtn.textContent = gameMode === 'boss' ? '💀 BOSS BATTLE' : gameMode === 'endless' ? '∞ ENDLESS' : 'PLAY';
-    startBtn.className = gameMode === 'boss' ? 'start-btn boss-mode-btn' : 'start-btn';
+    startBtn.textContent = gameMode === 'boss' ? '💀 BOSS BATTLE' : gameMode === 'endless' ? '🌀 ENDLESS RUN' : 'PLAY';
+    startBtn.className = gameMode === 'boss' ? 'start-btn boss-mode-btn' : gameMode === 'endless' ? 'start-btn endless-mode-btn' : 'start-btn';
     state.activeChar = selectedChar;
     state.message = '';
     state.messageTimer = 0;
@@ -2390,11 +2355,46 @@ ${choices}`, getBattleCharId());
     return currentTrailItem().value;
   }
 
+  function isUltimateSkin() {
+    return currentSkinItem()?.id === 'skin-ultimate';
+  }
+
+  function ultimateSkinFill(c) {
+    const g = c.createLinearGradient(-18, -18, 18, 18);
+    g.addColorStop(0.00, '#ff2d2d');  // 빨
+    g.addColorStop(0.16, '#ff8a00');  // 주
+    g.addColorStop(0.33, '#ffd800');  // 노
+    g.addColorStop(0.50, '#2cff2c');  // 초
+    g.addColorStop(0.66, '#2da8ff');  // 파
+    g.addColorStop(0.82, '#4b4bff');  // 남
+    g.addColorStop(1.00, '#8a2be2');   // 보
+    return g;
+  }
+
+  function rainbowBulletFill(c, r = 8) {
+    const g = c.createLinearGradient(-r, -r, r, r);
+    g.addColorStop(0.00, '#fffdf4');
+    g.addColorStop(0.18, '#fff4c7');
+    g.addColorStop(0.38, '#ffe07a');
+    g.addColorStop(0.58, '#ffcf3f');
+    g.addColorStop(0.78, '#dca11f');
+    g.addColorStop(1.00, '#fff3d6');
+    return g;
+  }
+
   function skinStats() {
-    const skin = currentSkinValue();
-    if (skin === '#ff4f97') return { damage: 1.12, speed: 1.03, beam: 1.1, flare: 1.12, aura: '#ff4f97' };
-    if (skin === '#6ee7ff') return { damage: 0.96, speed: 1.16, beam: 1.16, flare: 1.0, aura: '#6ee7ff' };
-    return { damage: 1.0, speed: 1.0, beam: 1.0, flare: 1.0, aura: skin };
+    const skin = currentSkinItem();
+    const color = currentSkinValue();
+    if (skin?.id === 'skin-rose') return { damage: 1.12, speed: 1.03, beam: 1.1, flare: 1.12, aura: '#ff4f97' };
+    if (skin?.id === 'skin-ice') return { damage: 0.96, speed: 1.16, beam: 1.16, flare: 1.0, aura: '#6ee7ff' };
+    if (skin?.id === 'skin-summer') return { damage: 1.0, speed: 1.08, beam: 1.04, flare: 1.08, aura: '#39ff14' };
+    if (skin?.id === 'skin-jsg') return { damage: 1.0, speed: 1.0, beam: 1.0, flare: 1.0, aura: '#D0CCFF' };
+    if (skin?.id === 'skin-danger') return { damage: 1.04, speed: 1.02, beam: 1.06, flare: 1.05, aura: color };
+    if (skin?.id === 'skin-ultimate') return { damage: 1.18, speed: 1.08, beam: 1.2, flare: 1.18, aura: '#ffcf5a' };
+    if (skin?.id === 'skin-aurora') return { damage: 1.03, speed: 1.04, beam: 1.06, flare: 1.05, aura: color };
+    if (skin?.id === 'skin-gold') return { damage: 1.10, speed: 1.02, beam: 1.06, flare: 1.30, aura: color };
+    if (skin?.id === 'skin-ysy') return { damage: 1.0, speed: 1.0, beam: 1.0, flare: 1.0, aura: color };
+    return { damage: 1.0, speed: 1.0, beam: 1.0, flare: 1.0, aura: color };
   }
 
   function effectStats() {
@@ -2412,10 +2412,6 @@ ${choices}`, getBattleCharId());
   }
 
   function startSelectedStage() {
-    if (gameMode === 'endless') {
-      startEndlessMode();
-      return;
-    }
     pendingBattleStart = {
       mode: gameMode,
       stage: gameMode === 'boss' ? selectedBossStage : selectedStage
@@ -2438,11 +2434,10 @@ ${choices}`, getBattleCharId());
       state.stage = stage;
       startBossMode();
     } else if (mode === 'endless') {
-      state.stage = stage;
       startEndlessMode();
     } else {
       state.stage = stage;
-      resetGame('normal');
+      resetGame(false);
     }
     return true;
   }
@@ -2450,11 +2445,10 @@ ${choices}`, getBattleCharId());
   // ══════════════════════════════════════════════
   //  일반 모드 초기화
   // ══════════════════════════════════════════════
-  function resetGame(mode = 'normal') {
-    const isBoss = mode === 'boss';
-    const isEndless = mode === 'endless';
+  function resetGame(isBoss = false) {
     state.isBossMode = isBoss;
-    state.isEndless = isEndless;
+    state.isEndless = false;
+    state.endlessWaveTimer = 0;
     state.started = true;
     state.paused = false;
     state.gameOver = false;
@@ -2464,10 +2458,10 @@ ${choices}`, getBattleCharId());
     state.hp = state.maxHp;
     state.wave = state.stage;
     state.stageProgress = 0;
-    state.stageTarget = isBoss ? 0 : (isEndless ? Infinity : stageConfig(state.stage).target);
+    state.stageTarget = isBoss ? 0 : stageConfig(state.stage).target;
     state.stageCleared = false;
     state.waveTimer = 0;
-    state.spawnTimer = isBoss ? 9999 : (isEndless ? 16 : stageConfig(state.stage).spawn);
+    state.spawnTimer = isBoss ? 9999 : stageConfig(state.stage).spawn;
     state.activeChar = selectedChar;
     state.mode = CHARACTERS[state.activeChar].weapon;
     state.charge = 0;
@@ -2521,7 +2515,7 @@ ${choices}`, getBattleCharId());
   //  보스 모드 초기화
   // ══════════════════════════════════════════════
   function startBossMode() {
-    resetGame('boss');
+    resetGame(true);
     const bossData = BOSS_STAGES[clamp(state.stage - 1, 0, BOSS_STAGES.length - 1)];
     state.bossHp = bossData.hp;
     state.bossMaxHp = bossData.hp;
@@ -2540,10 +2534,19 @@ ${choices}`, getBattleCharId());
     setHud();
   }
 
+  // ══════════════════════════════════════════════
+  //  엔드리스 모드 초기화
+  // ══════════════════════════════════════════════
   function startEndlessMode() {
-    state.stage = Math.max(1, state.stage || 1);
-    resetGame('endless');
-    announce('∞ ENDLESS MODE', 120);
+    state.stage = 1;
+    resetGame(false);
+    state.isEndless = true;
+    state.endlessWaveTimer = 0;
+    gameMode = 'endless';
+    toggleArenaDrawer(false);
+    startBtn.textContent = '🌀 ENDLESS RUN';
+    startBtn.className = 'start-btn endless-mode-btn';
+    announce('ENDLESS START', 120);
     setHud();
   }
 
@@ -2644,9 +2647,9 @@ ${choices}`, getBattleCharId());
   //  파티클 / 유틸
   // ══════════════════════════════════════════════
   function burst(x, y, count, color, power = 1) {
-    const max = Math.min(count, 12);
+    const max = Math.min(count, 8);
     // 파티클 총량 상한 (렉 방지)
-    if (particles.length > 180) particles.splice(0, particles.length - 120);
+    if (particles.length > 80) particles.splice(0, particles.length - 64);
     const fxColor = color || currentAccent();
     for (let i = 0; i < max; i++) {
       const a = rand(0, Math.PI * 2);
@@ -2687,9 +2690,9 @@ ${choices}`, getBattleCharId());
     gainUlt(kind === 'tank' ? 7 : kind === 'orb' ? 5 : kind === 'crimson' ? 4 : 3);
     playSound('enemy_die');
     burst(x, y, kind === 'tank' ? 18 : kind === 'orb' ? 14 : kind === 'crimson' ? 12 : 10, 'rgba(255,25,120,.95)', kind === 'tank' ? 1.2 : kind === 'orb' ? 1.0 : kind === 'crimson' ? 0.95 : 0.9);
-    if (state.started && !state.isBossMode) {
+    if (!state.stageCleared && state.started && !state.isBossMode && !state.isEndless) {
       state.stageProgress += 1;
-      if (!state.isEndless && !state.stageCleared && state.stageProgress >= state.stageTarget) {
+      if (state.stageProgress >= state.stageTarget) {
         state.stageCleared = true;
         addCoins(stageConfig(state.stage).reward);
         // 일반 클리어 기록
@@ -2713,14 +2716,9 @@ ${choices}`, getBattleCharId());
         setHud();
         announce(`STAGE ${state.stage} CLEAR`, 120);
       }
-      if (state.isEndless) {
-        const endlessWave = 1 + Math.floor(state.stageProgress / 25);
-        if (endlessWave > state.stage) {
-          state.stage = endlessWave;
-          announce(`ENDLESS LV.${state.stage}`, 90);
-          setHud();
-        }
-      }
+    } else if (state.isEndless && state.started) {
+      // 엔드리스 모드: 클리어 판정 없이 킬 수만 누적, 웨이브(난이도)는 시간에 따라 자동 상승
+      state.stageProgress += 1;
     }
   }
 
@@ -2740,17 +2738,16 @@ ${choices}`, getBattleCharId());
 
   function spawnEnemy() {
     const roll = Math.random();
-    const endlessScale = state.isEndless ? 1 + Math.max(0, state.stage - 1) * 0.06 : 1;
-    const crimsonChance = clamp(0.06 + state.stage * 0.003 + (state.isEndless ? 0.01 : 0), 0.06, 0.20);
-    const tankChance = clamp(0.18 + state.stage * 0.002 + (state.isEndless ? 0.015 : 0), 0.18, 0.34);
-    const orbChance = clamp(0.26 + state.stage * 0.0015 + (state.isEndless ? 0.02 : 0), 0.26, 0.42);
+    const crimsonChance = clamp(0.06 + state.stage * 0.003, 0.06, 0.15);
+    const tankChance = clamp(0.18 + state.stage * 0.002, 0.18, 0.26);
+    const orbChance = clamp(0.26 + state.stage * 0.0015, 0.26, 0.34);
     let type = 'diamond';
     if (roll > 1 - crimsonChance) type = 'crimson';
     else if (roll > 1 - crimsonChance - tankChance) type = 'tank';
     else if (roll > 1 - crimsonChance - tankChance - orbChance) type = 'orb';
 
     const size = type === 'tank' ? rand(19, 25) : type === 'orb' ? rand(14, 19) : type === 'crimson' ? rand(16, 21) : rand(12, 17);
-    const baseSpeed = stageConfig(clamp(state.stage, 1, STAGES.length)).speed * endlessScale;
+    const baseSpeed = stageConfig(state.stage).speed;
     const speedBoost = type === 'tank' ? 0.18 : type === 'orb' ? 0.28 : type === 'crimson' ? 0.34 : 0.22;
     enemies.push({
       id: idSeq++, kind: type,
@@ -2773,7 +2770,8 @@ ${choices}`, getBattleCharId());
       kind, owner: extra.owner ?? 'player', hit: new Set(),
       color: extra.color ?? currentSkinValue(),
       trail: extra.trail ?? currentTrailValue(),
-      effect: extra.effect ?? currentEffectValue()
+      effect: extra.effect ?? currentEffectValue(),
+      skin: extra.skin ?? currentSkinItem().id
     });
   }
 
@@ -2842,7 +2840,7 @@ ${choices}`, getBattleCharId());
     const skin = skinStats();
     const fx = effectStats();
     const rider = getRiderProgressStats(getBattleCharId());
-    state.batCooldown = Math.round(30 / fx.speed);
+    state.batCooldown = Math.round(22 / fx.speed);
     state.batSwing = 1;
     player.glow = 10;
     playSound('sprouty_shoot');
@@ -2907,33 +2905,6 @@ ${choices}`, getBattleCharId());
     });
     burst(player.x + 16, baseY, 10, '#2cff7a', 0.8 * fx.burst);
     player.glow = 9;
-  }
-
-  function shootCircuitVolley() {
-    const skin = skinStats();
-    const fx = effectStats();
-    const rider = getRiderProgressStats(getBattleCharId());
-    const droneCount = state.ultActive === 'droneswarm' ? 8 : 2;
-    const speedMult = state.specialActive === 'circuit_overclock' ? 2 : 1;
-    const speed = 11.3 * skin.speed * fx.speed * rider.bulletMult * speedMult;
-    const damage = Math.max(1, Math.round(1.12 * skin.damage * fx.damage * rider.damageMult * (state.ultActive === 'droneswarm' ? 1.15 : 1)));
-    const life = state.ultActive === 'droneswarm' ? 58 : 44;
-    for (let i = 0; i < droneCount; i++) {
-      const a = (_frameCount * 0.16) + (i / droneCount) * Math.PI * 2;
-      const ox = Math.cos(a) * (i < 2 ? 24 : 18);
-      const oy = Math.sin(a) * (i < 2 ? 14 : 10);
-      shootFrom(player.x + 18 + ox, player.y + oy, speed, Math.sin(a * 2) * 0.18, 'circuit', {
-        r: i < 2 ? 3.2 : 2.4,
-        life,
-        damage,
-        color: i % 2 ? '#cbd5e1' : '#6ee7ff',
-        trail: currentTrailValue(),
-        effect: i < 2 ? currentEffectValue() : 'pulse'
-      });
-      if (i < 3) burst(player.x + 18 + ox, player.y + oy, i < 2 ? 3 : 2, i % 2 ? '#cbd5e1' : '#6ee7ff', 0.25 * fx.burst);
-    }
-    playSound('circuit_shoot');
-    player.glow = 10;
   }
 
   function shootRapper(fromClone = false, offsetY = 0) {
@@ -3267,15 +3238,7 @@ ${choices}`, getBattleCharId());
         }
       }
       if (state.isBossMode) damageBoss(12 * rider.damageMult);
-    } else if (battleCharId === 'circuit') {
-      announce(skillName, 90);
-      shake(6);
-      state.specialActive = 'circuit_overclock';
-      state.specialTimer = 540;
-      burst(player.x + 28, player.y, 16, '#6ee7ff', 1.0);
-      player.glow = 12;
     }
-
     setHud();
   }
 
@@ -3326,14 +3289,6 @@ ${choices}`, getBattleCharId());
       if (state.specialTimer <= 0) {
         state.specialActive = null;
         state.specialData = null;
-      }
-    }
-
-    if (state.specialActive === 'circuit_overclock') {
-      if (state.specialTimer % 12 === 0) burst(player.x + 18, player.y, 4, '#6ee7ff', 0.65);
-      state.specialTimer--;
-      if (state.specialTimer <= 0) {
-        state.specialActive = null;
       }
     }
   }
@@ -3410,11 +3365,6 @@ ${choices}`, getBattleCharId());
       if (state.ultTimer <= 0) state.ultActive = null;
     }
 
-    if (state.ultActive === 'droneswarm') {
-      if (state.ultTimer % 10 === 0) shootCircuitVolley();
-      if (state.ultTimer % 26 === 0) burst(player.x + 18, player.y, 6, '#6ee7ff', 0.55);
-      if (state.ultTimer <= 0) state.ultActive = null;
-    }
     if (state.ultActive === 'water') {
       // 파란 물구체 연사: 7프레임마다 1발, SPROUTY orb 재활용 (색만 파랗게, 동결 속성 부여)
       if (state.ultTimer % 7 === 0) {
@@ -3546,16 +3496,21 @@ ${choices}`, getBattleCharId());
         }
         break;
       }
-      case 'sprouty_mix': {
-        const base = Math.atan2(player.y - bossY, player.x - bossX);
-        const wobble = Math.sin(state.bossPatternTimer * 0.18) * 0.5;
-        for (let i = -2; i <= 2; i++) {
-          const angle = base + wobble + i * 0.14;
-          bossBullets.push({ x: bossX, y: bossY, vx: Math.cos(angle) * (speed + 0.4), vy: Math.sin(angle) * (speed + 0.4), r: 4.5, life: 235, color: '#39ff14', pattern: 'sprouty_mix' });
+      // ── 정새싹 전용: SPROUTY 평타(배트 스윙) 모사 ──
+      case 'sprout_bat': {
+        const baseAngle = Math.atan2(player.y - bossY, player.x - bossX);
+        for (let i = -1; i <= 1; i++) {
+          const angle = baseAngle + i * 0.22;
+          bossBullets.push({ x: bossX, y: bossY, vx: Math.cos(angle) * speed * 0.85, vy: Math.sin(angle) * speed * 0.85, r: 10, life: 240, color: '#39ff14', pattern: 'sprout_bat', dmg: 16 });
         }
-        if (state.bossPatternTimer % 28 === 0) {
-          bossBullets.push({ x: bossX - 10, y: bossY - 20, vx: -speed * 0.95, vy: -1.3, r: 5.5, life: 250, color: '#39ff14', pattern: 'sprouty_mix' });
-          bossBullets.push({ x: bossX - 10, y: bossY + 20, vx: -speed * 0.95, vy: 1.3, r: 5.5, life: 250, color: '#39ff14', pattern: 'sprouty_mix' });
+        break;
+      }
+      // ── 정새싹 전용: SPROUTY 궁극기(새싹이헬리콥터) 모사 ──
+      case 'sprout_heli': {
+        const spin = state.bossPatternTimer * 0.5;
+        for (let i = 0; i < 10; i++) {
+          const angle = spin + (i / 10) * Math.PI * 2;
+          bossBullets.push({ x: bossX, y: bossY, vx: Math.cos(angle) * (speed + 1.3), vy: Math.sin(angle) * (speed + 1.3), r: 5, life: 220, color: '#39ff14', pattern: 'sprout_heli', dmg: 18 });
         }
         break;
       }
@@ -3572,7 +3527,7 @@ ${choices}`, getBattleCharId());
     state.bossPatternTimer++;
 
     const hpPct = state.bossHp / state.bossMaxHp;
-    const patternInterval = bossData.n === 6 ? (hpPct > 0.65 ? 38 : hpPct > 0.35 ? 24 : 16) : hpPct > 0.65 ? 56 : hpPct > 0.35 ? 38 : 24;
+    const patternInterval = hpPct > 0.65 ? 56 : hpPct > 0.35 ? 38 : 24;
 
     if (state.bossPatternTimer % patternInterval === 0) {
       const pat = patterns[(state.bossPatternIdx + Math.floor(state.bossPatternTimer / patternInterval)) % patterns.length];
@@ -3662,7 +3617,7 @@ ${choices}`, getBattleCharId());
       if (b.x < arenaLeft - 40 || b.x > arenaRight + 40 || b.y < arenaTop - 40 || b.y > arenaBottom + 40) return false;
       // 플레이어 충돌
       if (player.invuln <= 0 && dist(b.x, b.y, player.x, player.y) < b.r + 12) {
-        if (state.ultActive !== 'seed') damagePlayer(12);
+        if (state.ultActive !== 'seed') damagePlayer(b.dmg || 12);
         return false;
       }
       return true;
@@ -3891,29 +3846,45 @@ ${choices}`, getBattleCharId());
         bctx.fillStyle = bossData.color;
         bctx.beginPath(); bctx.arc(0, 0, 5, 0, Math.PI * 2); bctx.fill();
         break;
-      case 6: // 정새싹 - 새싹 본체 + 프로펠러
-        bctx.shadowBlur = 18;
-        bctx.beginPath();
-        bctx.ellipse(0, 4, 20, 24, 0, 0, Math.PI * 2);
-        bctx.fillStyle = bossData.color;
-        bctx.fill();
-        bctx.fillStyle = '#000';
-        bctx.beginPath(); bctx.arc(-6, -2, 3.5, 0, Math.PI * 2); bctx.fill();
-        bctx.beginPath(); bctx.arc(6, -2, 3.5, 0, Math.PI * 2); bctx.fill();
-        bctx.strokeStyle = '#fff';
-        bctx.lineWidth = 2.2;
-        bctx.beginPath();
-        bctx.moveTo(-7, 12); bctx.quadraticCurveTo(0, 20, 7, 12);
-        bctx.stroke();
+      case 6: // 정새싹 - 분노한 궁극 새싹 헬리콥터
+        bctx.shadowBlur = 22 + Math.sin(t * 2) * 8;
+        // 회전 프로펠러 날개 (뒤쪽, 크게)
+        const spin6 = t * 6;
+        bctx.globalAlpha = 0.85;
         for (let i = 0; i < 4; i++) {
-          const a = t * 4 + i * (Math.PI / 2);
-          bctx.beginPath();
-          bctx.moveTo(0, -20);
-          bctx.lineTo(Math.cos(a) * 22, -20 + Math.sin(a) * 4);
-          bctx.strokeStyle = i % 2 ? '#39ff14' : '#b7ffb0';
-          bctx.lineWidth = 3;
-          bctx.stroke();
+          const a = spin6 + (i / 4) * Math.PI * 2;
+          bctx.save();
+          bctx.rotate(a);
+          bctx.fillStyle = bossData.color;
+          bctx.beginPath(); bctx.ellipse(22, 0, 18, 4, 0, 0, Math.PI * 2); bctx.fill();
+          bctx.restore();
         }
+        bctx.globalAlpha = 1;
+        // 몸체 (둥근 큰 타원)
+        bctx.fillStyle = bossData.color;
+        bctx.beginPath(); bctx.ellipse(0, 4, 24, 26, 0, 0, Math.PI * 2); bctx.fill();
+        // 잎 날개 양옆
+        bctx.fillStyle = '#1aff00';
+        bctx.beginPath(); bctx.ellipse(-28, 2, 16, 8, -0.4, 0, Math.PI * 2); bctx.fill();
+        bctx.beginPath(); bctx.ellipse(28, 2, 16, 8, 0.4, 0, Math.PI * 2); bctx.fill();
+        // 프로펠러 허브(모자)
+        bctx.fillStyle = '#fff';
+        bctx.beginPath(); bctx.arc(0, -22, 8, 0, Math.PI * 2); bctx.fill();
+        bctx.fillStyle = bossData.color;
+        bctx.beginPath(); bctx.arc(0, -22, 5, 0, Math.PI * 2); bctx.fill();
+        // 화난 눈썹
+        bctx.strokeStyle = '#000';
+        bctx.lineWidth = 3;
+        bctx.lineCap = 'round';
+        bctx.beginPath(); bctx.moveTo(-15, -9); bctx.lineTo(-4, -3); bctx.stroke();
+        bctx.beginPath(); bctx.moveTo(15, -9); bctx.lineTo(4, -3); bctx.stroke();
+        // 눈
+        bctx.fillStyle = '#000';
+        bctx.beginPath(); bctx.arc(-8, 3, 4.5, 0, Math.PI * 2); bctx.fill();
+        bctx.beginPath(); bctx.arc(8, 3, 4.5, 0, Math.PI * 2); bctx.fill();
+        bctx.fillStyle = '#fff';
+        bctx.beginPath(); bctx.arc(-6.5, 1.5, 1.6, 0, Math.PI * 2); bctx.fill();
+        bctx.beginPath(); bctx.arc(9.5, 1.5, 1.6, 0, Math.PI * 2); bctx.fill();
         break;
     }
     bctx.restore();
@@ -3937,16 +3908,32 @@ ${choices}`, getBattleCharId());
     state.gameOver = true;
     state.started = false;
     state.isBossMode = false;
-    state.isEndless = false;
     playSound('game_over');
     bossHpBar.classList.remove('show');
     rotateOverlay.classList.remove('show');
     overlay.classList.add('show');
     showScreen('home');
-    panelH1.textContent = 'GAME OVER';
-    panelP.innerHTML = `점수 <b>${state.score}</b> · STAGE <b>${state.stage}</b><br>다시 도전하세요!`;
-    startBtn.textContent = gameMode === 'boss' ? '💀 BOSS BATTLE' : gameMode === 'endless' ? '∞ ENDLESS' : 'PLAY';
-    startBtn.className = gameMode === 'boss' ? 'start-btn boss-mode-btn' : 'start-btn';
+
+    if (state.isEndless) {
+      const kills = state.stageProgress || 0;
+      const bonus = Math.max(0, Math.round(kills * 1.5 + state.score * 0.5));
+      addCoins(bonus);
+      saveData.endlessBest = saveData.endlessBest || { kills: 0, score: 0, wave: 0 };
+      const isRecord = kills > (saveData.endlessBest.kills || 0);
+      if (isRecord) saveData.endlessBest = { kills, score: state.score, wave: state.stage };
+      persistSave();
+      panelH1.textContent = isRecord ? 'NEW RECORD!' : 'GAME OVER';
+      panelP.innerHTML = `잡은 수 <b>${kills}</b> · WAVE <b>${state.stage}</b><br>보너스 +${bonus} COINS 획득` +
+        (isRecord ? `<br><b style="color:#ffb020">🏆 최고 기록 경신!</b>` : `<br>최고 기록 ${saveData.endlessBest.kills}킬 · WAVE ${saveData.endlessBest.wave}`);
+      startBtn.textContent = '🌀 ENDLESS RUN';
+      startBtn.className = 'start-btn endless-mode-btn';
+      state.isEndless = false;
+    } else {
+      panelH1.textContent = 'GAME OVER';
+      panelP.innerHTML = `점수 <b>${state.score}</b> · STAGE <b>${state.stage}</b><br>다시 도전하세요!`;
+      startBtn.textContent = gameMode === 'boss' ? '💀 BOSS BATTLE' : 'PLAY';
+      startBtn.className = gameMode === 'boss' ? 'start-btn boss-mode-btn' : 'start-btn';
+    }
     setHud();
     announce('SYSTEM DOWN', 150);
   }
@@ -4066,14 +4053,16 @@ ${choices}`, getBattleCharId());
 
   startBtn.addEventListener('click', () => {
     if (gameMode === 'endless') {
-      startEndlessMode();
+      pendingBattleStart = { mode: 'endless', stage: 1 };
+      checkOrientation();
+      if (!isPortraitViewport()) beginPendingBattle();
       return;
     }
     if (state.stageCleared) {
       state.stageCleared = false;
       if (gameMode === 'normal') {
         state.stage = selectedStage;
-        resetGame('normal');
+        resetGame(false);
       } else {
         state.stage = selectedBossStage;
         startBossMode();
@@ -4087,10 +4076,14 @@ ${choices}`, getBattleCharId());
   stageBackBtn.addEventListener('click', goToMenu);
   riderBtn.addEventListener('click', openRiderSelect);
   riderBackBtn.addEventListener('click', goToMenu);
-  if (shopOpenBtn) shopOpenBtn.addEventListener('click', openShop);
-  if (shopBackBtn) shopBackBtn.addEventListener('click', goToMenu);
   if (challengeOpenBtn) challengeOpenBtn.addEventListener('click', openChallenges);
   if (challengeBackBtn) challengeBackBtn.addEventListener('click', goToMenu);
+  if (shopOpenBtn) shopOpenBtn.addEventListener('click', openShop);
+  if (shopBackBtn) shopBackBtn.addEventListener('click', goToMenu);
+  if (shopUnlockBtn) shopUnlockBtn.addEventListener('click', tryShopUnlockCode);
+  if (shopUnlockInput) shopUnlockInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') tryShopUnlockCode();
+  });
   settingsOpenBtn.addEventListener('click', openSettings);
   if (riderModalClose) riderModalClose.addEventListener('click', () => closeRiderDetail());
   if (riderModal) riderModal.addEventListener('click', (e) => { if (e.target === riderModal) closeRiderDetail(); });
@@ -4161,9 +4154,6 @@ ${choices}`, getBattleCharId());
       }
     } else if (battleWeapon === 'shotgun') {
       if (state.fireHoldFrames % 11 === 1) shootShotgun();
-    } else if (battleWeapon === 'circuit') {
-      const interval = state.specialActive === 'circuit_overclock' ? 3 : 6;
-      if (state.fireHoldFrames % interval === 0) shootCircuitVolley();
     } else if (battleWeapon === 'laser') {
       if (!batteryActive) {
         state.charge = Math.min(1, state.charge + 0.012);
@@ -4352,19 +4342,28 @@ function updateEnemies() {
           player.x = clamp(player.x + player.moveX, arenaLeft + 28, arenaRight - 28);
           player.y = clamp(player.y + player.moveY, arenaTop + 18, arenaBottom - 18);
         } else {
-          // 일반 / 엔드리스 모드
+          // 일반 모드
           player.moveX += (player.vx - player.moveX) * 0.18;
           player.moveY += (player.vy - player.moveY) * 0.18;
           player.x = clamp(player.x + player.moveX, arenaLeft + 28, arenaLeft + arenaW * 0.55);
           player.y = clamp(player.y + player.moveY, arenaTop + 18, arenaBottom - 18);
 
+          // 엔드리스 모드: 12초마다 가상 웨이브(난이도)를 1씩 올림 (스폰/속도 공식은 stageConfig 재사용)
+          if (state.isEndless) {
+            state.endlessWaveTimer = (state.endlessWaveTimer || 0) + 1;
+            if (state.endlessWaveTimer >= 720) {
+              state.endlessWaveTimer = 0;
+              state.stage += 1;
+              announce(`WAVE ${state.stage}`, 90);
+            }
+          }
+
           state.spawnTimer--;
-          const cfg = stageConfig(clamp(state.stage, 1, STAGES.length));
-          const endlessSpawn = state.isEndless ? Math.max(4, cfg.spawn - Math.floor((state.stage - 1) * 0.7)) : cfg.spawn;
+          const cfg = stageConfig(state.stage);
           if (state.spawnTimer <= 0) {
             spawnEnemy();
-            if (Math.random() < 0.16 + Math.min(0.16, state.stage * 0.02) + (state.isEndless ? 0.08 : 0)) spawnEnemy();
-            state.spawnTimer = endlessSpawn;
+            if (Math.random() < 0.16 + Math.min(0.16, state.stage * 0.02)) spawnEnemy();
+            state.spawnTimer = cfg.spawn;
           }
           updateEnemies();
           updateEnemyBullets();
@@ -4401,14 +4400,15 @@ function updateEnemies() {
       state.gameOver = false;
       state.paused = true;
       state.isBossMode = false;
+      state.isEndless = false;
       bossHpBar.classList.remove('show');
       rotateOverlay.classList.remove('show');
       overlay.classList.add('show');
       showScreen('home');
       panelH1.textContent = 'ERROR BLOCKED';
       panelP.innerHTML = '예상치 못한 오류를 자동으로 막았어요.<br>다시 PLAY를 누르면 이어서 즐길 수 있어요.';
-      startBtn.textContent = gameMode === 'boss' ? '💀 BOSS BATTLE' : gameMode === 'endless' ? '∞ ENDLESS' : 'PLAY';
-      startBtn.className = gameMode === 'boss' ? 'start-btn boss-mode-btn' : 'start-btn';
+      startBtn.textContent = gameMode === 'boss' ? '💀 BOSS BATTLE' : gameMode === 'endless' ? '🌀 ENDLESS RUN' : 'PLAY';
+      startBtn.className = gameMode === 'boss' ? 'start-btn boss-mode-btn' : gameMode === 'endless' ? 'start-btn endless-mode-btn' : 'start-btn';
       setHud();
     }
     requestAnimationFrame(step);
@@ -4438,26 +4438,14 @@ function updateEnemies() {
     }
     ctx.restore();
 
-    // 아레나 내부는 선 대신 호흡감 있는 네온 안개로 처리
-    ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
-    const orbs = [
-      [W * 0.22, arenaTop + arenaH * 0.24, 120, 'rgba(0,255,213,.10)'],
-      [W * 0.76, arenaTop + arenaH * 0.30, 140, 'rgba(255,25,120,.08)'],
-      [W * 0.52, arenaTop + arenaH * 0.72, 160, 'rgba(138,43,226,.08)']
-    ];
-    for (const [ox, oy, size, color] of orbs) {
-      const pulse = 0.82 + Math.sin((_frameCount * 0.015) + ox * 0.001) * 0.12;
-      const g = ctx.createRadialGradient(ox, oy, 0, ox, oy, size * pulse);
-      g.addColorStop(0, color);
-      g.addColorStop(.45, color.replace(/\d?\.\d+\)/, '.03)'));
-      g.addColorStop(1, 'rgba(0,0,0,0)');
-      ctx.fillStyle = g;
-      ctx.beginPath();
-      ctx.arc(ox, oy, size * pulse, 0, Math.PI * 2);
-      ctx.fill();
+    // 스캔라인 (2프레임마다 생략으로 성능↑)
+    if (_frameCount % 2 === 0) {
+      ctx.save();
+      ctx.globalAlpha = 0.05;
+      ctx.fillStyle = '#ffffff';
+      for (let y = 0; y < H; y += 6) ctx.fillRect(0, y, W, 1);
+      ctx.restore();
     }
-    ctx.restore();
 
     if (state.hp < 30 && !state.isBossMode) {
       ctx.save();
@@ -4477,42 +4465,23 @@ function updateEnemies() {
     const accent = currentAccent();
     // 배경
     const g = ctx.createLinearGradient(arenaLeft, arenaTop, arenaLeft, arenaBottom);
-    g.addColorStop(0, 'rgba(255,25,120,.05)');
-    g.addColorStop(.5, 'rgba(0,255,213,.03)');
-    g.addColorStop(1, 'rgba(138,43,226,.05)');
+    g.addColorStop(0, 'rgba(255,25,120,.04)');
+    g.addColorStop(.5, 'rgba(0,255,213,.02)');
+    g.addColorStop(1, 'rgba(255,25,120,.04)');
     ctx.fillStyle = g;
     ctx.fillRect(arenaLeft, arenaTop, arenaW, arenaH);
-
-    // 가운데에 살짝 모이는 홀로그램 느낌
-    ctx.save();
-    const core = ctx.createRadialGradient(
-      arenaLeft + arenaW * 0.5, arenaTop + arenaH * 0.5, 24,
-      arenaLeft + arenaW * 0.5, arenaTop + arenaH * 0.5, arenaW * 0.58
-    );
-    core.addColorStop(0, 'rgba(255,255,255,.02)');
-    core.addColorStop(.65, 'rgba(0,255,213,.02)');
-    core.addColorStop(1, 'rgba(0,0,0,0)');
-    ctx.fillStyle = core;
-    ctx.fillRect(arenaLeft, arenaTop, arenaW, arenaH);
-    ctx.restore();
-
-    // 좌우 경계만 남기고 가로선은 제거
+    // 더 깔끔한 배경 유지
+    // 좌우 경계
     const drawSideGrad = (x) => {
       const sg = ctx.createLinearGradient(x - 3, arenaTop, x + 3, arenaTop);
       sg.addColorStop(0, 'rgba(138,43,226,0)');
-      sg.addColorStop(.5, 'rgba(138,43,226,.8)');
+      sg.addColorStop(.5, 'rgba(138,43,226,.6)');
       sg.addColorStop(1, 'rgba(138,43,226,0)');
       ctx.fillStyle = sg;
       ctx.fillRect(x - 3, arenaTop, 6, arenaH);
     };
     drawSideGrad(arenaLeft);
     drawSideGrad(arenaRight);
-
-    // 상단/하단 라인으로 공간감만 추가
-    ctx.globalAlpha = 0.18;
-    ctx.fillStyle = 'rgba(255,255,255,.18)';
-    ctx.fillRect(arenaLeft + 10, arenaTop + 8, arenaW - 20, 1);
-    ctx.fillRect(arenaLeft + 10, arenaBottom - 9, arenaW - 20, 1);
     ctx.restore();
 
     // 메시지
@@ -4528,13 +4497,15 @@ function updateEnemies() {
       ctx.restore();
     }
 
-    // 스테이지 진행도 (일반모드)
+    // 스테이지 진행도 (일반모드) / 다음 웨이브까지 (엔드리스)
     if (!state.isBossMode && state.started) {
-      const pct = Math.min(1, state.stageProgress / state.stageTarget);
+      const pct = state.isEndless
+        ? Math.min(1, (state.endlessWaveTimer || 0) / 720)
+        : Math.min(1, state.stageProgress / state.stageTarget);
       ctx.save();
       ctx.fillStyle = 'rgba(255,255,255,.06)';
       ctx.fillRect(arenaLeft, arenaBottom + 4, arenaW, 4);
-      ctx.fillStyle = '#00ffd5';
+      ctx.fillStyle = state.isEndless ? '#ffb020' : '#00ffd5';
       ctx.fillRect(arenaLeft, arenaBottom + 4, arenaW * pct, 4);
       ctx.restore();
     }
@@ -4558,7 +4529,6 @@ function updateEnemies() {
       case 'lemon': drawPlayerLemon(ctx, col); break;
       case 'jungle': drawPlayerJungle(ctx, col); break;
       case 'rapper': drawPlayerRapper(ctx, col); break;
-      case 'circuit': drawPlayerCircuit(ctx, col); break;
             default: drawPlayerVolt(ctx, col);
     }
 
@@ -4627,12 +4597,74 @@ function updateEnemies() {
 
     if (player.glow > 0) {
       ctx.globalAlpha = 0.22;
-      ctx.fillStyle = col;
+      ctx.fillStyle = isUltimateSkin() ? ultimateSkinFill(ctx) : col;
       ctx.shadowBlur = 14;
-      ctx.shadowColor = col;
+      ctx.shadowColor = isUltimateSkin() ? '#ff5fe0' : col;
       ctx.beginPath();
       ctx.arc(0, 0, 16 + player.glow * 0.6, 0, Math.PI * 2);
       ctx.fill();
+    }
+    const skin = currentSkinItem();
+    if (skin?.mode === 'shine') {
+      ctx.save();
+      ctx.globalAlpha = 0.48;
+      ctx.rotate(-0.45);
+      ctx.strokeStyle = 'rgba(255,255,255,.88)';
+      ctx.lineWidth = 4;
+      ctx.shadowBlur = 18;
+      ctx.shadowColor = '#ffffff';
+      ctx.beginPath();
+      ctx.moveTo(-26, -10);
+      ctx.lineTo(26, 10);
+      ctx.stroke();
+      ctx.globalAlpha = 0.22;
+      ctx.fillStyle = 'rgba(255,255,255,.75)';
+      ctx.beginPath();
+      ctx.arc(-8, -10, 7, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+    if (skin?.mode === 'gold') {
+      ctx.save();
+      const g = ctx.createLinearGradient(-28, -24, 28, 24);
+      g.addColorStop(0, 'rgba(255,255,255,.96)');
+      g.addColorStop(0.2, 'rgba(255,250,220,.98)');
+      g.addColorStop(0.5, 'rgba(255,214,102,.98)');
+      g.addColorStop(0.8, 'rgba(214,161,28,.98)');
+      g.addColorStop(1, 'rgba(255,248,220,.98)');
+      ctx.globalAlpha = 0.92;
+      ctx.rotate(-0.42);
+      ctx.strokeStyle = g;
+      ctx.lineWidth = 5;
+      ctx.shadowBlur = 22;
+      ctx.shadowColor = '#ffd36a';
+      ctx.beginPath();
+      ctx.moveTo(-28, -12);
+      ctx.lineTo(28, 12);
+      ctx.stroke();
+      ctx.globalAlpha = 0.34;
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(-8, -10, 10, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = 0.18;
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.arc(0, 0, 24, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+    if (skin?.mode === 'poop') {
+      ctx.save();
+      ctx.globalAlpha = 0.25;
+      ctx.strokeStyle = '#f0d0a5';
+      ctx.lineWidth = 2;
+      ctx.shadowBlur = 10;
+      ctx.shadowColor = '#f0d0a5';
+      ctx.beginPath();
+      ctx.arc(0, 0, 20, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
     }
     ctx.restore();
   }
@@ -4643,8 +4675,8 @@ function updateEnemies() {
     c.fillStyle = '#00ffd5';
     c.beginPath(); c.arc(0, 0, 24, 0, Math.PI * 2); c.fill();
     c.globalAlpha = 1;
-    c.fillStyle = col;
-    c.shadowBlur = 10; c.shadowColor = col;
+    c.fillStyle = isUltimateSkin() ? ultimateSkinFill(c) : col;
+    c.shadowBlur = 10; c.shadowColor = isUltimateSkin() ? '#ff5fe0' : col;
     c.beginPath();
     c.moveTo(16, 0); c.lineTo(0, -12); c.lineTo(-14, 0); c.lineTo(0, 12);
     c.closePath(); c.fill();
@@ -4661,8 +4693,8 @@ function updateEnemies() {
     c.fillStyle = '#ff1978';
     c.beginPath(); c.arc(0, 0, 26, 0, Math.PI * 2); c.fill();
     c.globalAlpha = 1;
-    c.fillStyle = col;
-    c.shadowBlur = 12; c.shadowColor = col;
+    c.fillStyle = isUltimateSkin() ? ultimateSkinFill(c) : col;
+    c.shadowBlur = 12; c.shadowColor = isUltimateSkin() ? '#ff5fe0' : col;
     // 육각형
     c.beginPath();
     for (let i = 0; i < 6; i++) {
@@ -4681,15 +4713,15 @@ function updateEnemies() {
   function drawPlayerViolet(c, col) {
     // VIOLET: 원형 링 레이어 + 충전 오라
     c.globalAlpha = 0.15;
-    c.fillStyle = col;
+    c.fillStyle = isUltimateSkin() ? ultimateSkinFill(c) : col;
     c.beginPath(); c.arc(0, 0, 28, 0, Math.PI * 2); c.fill();
     c.globalAlpha = 0.5;
-    c.strokeStyle = col;
+    c.strokeStyle = isUltimateSkin() ? '#ff5fe0' : col;
     c.lineWidth = 2;
     c.beginPath(); c.arc(0, 0, 20, 0, Math.PI * 2); c.stroke();
     c.globalAlpha = 1;
-    c.fillStyle = col;
-    c.shadowBlur = 14; c.shadowColor = col;
+    c.fillStyle = isUltimateSkin() ? ultimateSkinFill(c) : col;
+    c.shadowBlur = 14; c.shadowColor = isUltimateSkin() ? '#ff5fe0' : col;
     c.beginPath();
     // 별형
     for (let i = 0; i < 6; i++) {
@@ -4714,7 +4746,7 @@ function updateEnemies() {
     c.beginPath(); c.arc(0, 0, 26, 0, Math.PI * 2); c.fill();
     c.globalAlpha = 1;
     c.shadowBlur = 16; c.shadowColor = '#ff4400';
-    c.fillStyle = col;
+    c.fillStyle = isUltimateSkin() ? ultimateSkinFill(c) : col;
     // 불꽃 모양 (단순화)
     c.beginPath();
     c.moveTo(0, -14);
@@ -4737,7 +4769,7 @@ function updateEnemies() {
     c.globalAlpha = 1;
     c.shadowBlur = 12; c.shadowColor = '#39ff14';
     // 몸체 (둥근 타원)
-    c.fillStyle = col;
+    c.fillStyle = isUltimateSkin() ? ultimateSkinFill(c) : col;
     c.beginPath(); c.ellipse(0, 2, 12, 14, 0, 0, Math.PI * 2); c.fill();
     // 잎 모양 날개 양옆
     c.fillStyle = '#1aff00';
@@ -4767,8 +4799,8 @@ function updateEnemies() {
     c.fillStyle = '#f7ff66';
     c.beginPath(); c.arc(0, 0, 25, 0, Math.PI * 2); c.fill();
     c.globalAlpha = 1;
-    c.fillStyle = col;
-    c.shadowBlur = 12; c.shadowColor = col;
+    c.fillStyle = isUltimateSkin() ? ultimateSkinFill(c) : col;
+    c.shadowBlur = 12; c.shadowColor = isUltimateSkin() ? '#ff5fe0' : col;
     c.fillRect(-10, -7, 10, 14);
     c.fillRect(2, -7, 10, 14);
     c.fillStyle = '#fff';
@@ -4781,8 +4813,8 @@ function updateEnemies() {
     c.fillStyle = '#2cff7a';
     c.beginPath(); c.arc(0, 0, 26, 0, Math.PI * 2); c.fill();
     c.globalAlpha = 1;
-    c.fillStyle = col;
-    c.shadowBlur = 12; c.shadowColor = col;
+    c.fillStyle = isUltimateSkin() ? ultimateSkinFill(c) : col;
+    c.shadowBlur = 12; c.shadowColor = isUltimateSkin() ? '#ff5fe0' : col;
     c.beginPath();
     c.moveTo(0, -16); c.lineTo(16, 0); c.lineTo(0, 16); c.lineTo(-16, 0); c.closePath(); c.fill();
     c.fillStyle = '#fff';
@@ -4794,60 +4826,13 @@ function updateEnemies() {
     c.fillStyle = '#ffb020';
     c.beginPath(); c.arc(0, 0, 26, 0, Math.PI * 2); c.fill();
     c.globalAlpha = 1;
-    c.fillStyle = col;
-    c.shadowBlur = 12; c.shadowColor = col;
+    c.fillStyle = isUltimateSkin() ? ultimateSkinFill(c) : col;
+    c.shadowBlur = 12; c.shadowColor = isUltimateSkin() ? '#ff5fe0' : col;
     c.beginPath();
     c.arc(0, 0, 14, 0, Math.PI * 2);
     c.fill();
     c.fillStyle = '#fff';
     c.fillRect(-2, -16, 4, 32);
-  }
-
-  function drawPlayerCircuit(c, col) {
-    const droneCount = state.ultActive === 'droneswarm' ? 8 : 2;
-    const t = _frameCount * 0.14;
-    c.globalAlpha = 0.16;
-    c.fillStyle = '#6ee7ff';
-    c.beginPath(); c.arc(0, 0, 30, 0, Math.PI * 2); c.fill();
-    c.globalAlpha = 1;
-    c.fillStyle = col;
-    c.shadowBlur = 14;
-    c.shadowColor = '#6ee7ff';
-    c.beginPath(); c.arc(0, 0, 12, 0, Math.PI * 2); c.fill();
-    c.strokeStyle = '#6ee7ff';
-    c.lineWidth = 1.6;
-    c.beginPath(); c.arc(0, 0, 21, 0, Math.PI * 2); c.stroke();
-    c.globalAlpha = 0.38;
-    c.beginPath();
-    c.arc(0, 0, 8, 0, Math.PI * 2);
-    c.stroke();
-    for (let i = 0; i < droneCount; i++) {
-      const a = t + (i / droneCount) * Math.PI * 2;
-      const isCore = i < 2;
-      const rx = Math.cos(a) * (isCore ? 20 : 24);
-      const ry = Math.sin(a) * (isCore ? 12 : 14);
-      c.save();
-      c.translate(rx, ry);
-      c.rotate(a + Math.PI / 2);
-      c.fillStyle = i % 2 ? '#cbd5e1' : '#6ee7ff';
-      if (isCore) {
-        c.shadowBlur = 9;
-        c.shadowColor = i % 2 ? '#cbd5e1' : '#6ee7ff';
-        c.beginPath();
-        c.moveTo(0, -4); c.lineTo(5, 0); c.lineTo(0, 4); c.lineTo(-5, 0); c.closePath(); c.fill();
-        c.fillStyle = '#fff';
-        c.beginPath(); c.arc(0, 0, 1.6, 0, Math.PI * 2); c.fill();
-      } else {
-        c.globalAlpha = 0.85;
-        c.shadowBlur = 4;
-        c.beginPath(); c.arc(0, 0, 2.1, 0, Math.PI * 2); c.fill();
-        c.globalAlpha = 0.55;
-        c.strokeStyle = '#6ee7ff';
-        c.lineWidth = 1;
-        c.beginPath(); c.arc(0, 0, 3.8, 0, Math.PI * 2); c.stroke();
-      }
-      c.restore();
-    }
   }
 
   function roundRect(c, x, y, w, h, r) {
@@ -4915,7 +4900,6 @@ function updateEnemies() {
   function drawBullets() {
     for (const b of bullets) {
       ctx.save();
-      ctx.globalCompositeOperation = 'lighter';
       const tailMode = b.trail || currentTrailValue();
       const dx = b.x - (b.prevX ?? b.x);
       const dy = b.y - (b.prevY ?? b.y);
@@ -4923,6 +4907,7 @@ function updateEnemies() {
       const tailLen = clamp(len * 3.2, 5, 24);
       const ang = Math.atan2(dy || 0.001, dx || 1);
       const baseColor = b.color || charColor();
+      const isUltimateBullet = b.skin === 'skin-ultimate';
 
       ctx.translate(b.x, b.y);
       if (tailLen > 2) {
@@ -4935,11 +4920,11 @@ function updateEnemies() {
           roundRect(ctx, -tailLen, -3, tailLen * 1.2, 6, 3);
           ctx.fill();
         } else if (tailMode === 'prism') {
-          ctx.fillStyle = baseColor;
+          ctx.fillStyle = isUltimateBullet ? rainbowBulletFill(ctx, tailLen) : baseColor;
           ctx.beginPath();
           ctx.moveTo(0, -4); ctx.lineTo(tailLen, 0); ctx.lineTo(0, 4); ctx.lineTo(-tailLen * 0.2, 0); ctx.closePath(); ctx.fill();
         } else {
-          ctx.fillStyle = baseColor;
+          ctx.fillStyle = isUltimateBullet ? rainbowBulletFill(ctx, tailLen) : baseColor;
           ctx.beginPath(); ctx.moveTo(0, -2); ctx.lineTo(tailLen, 0); ctx.lineTo(0, 2); ctx.closePath(); ctx.fill();
         }
         ctx.restore();
@@ -4981,19 +4966,6 @@ function updateEnemies() {
         ctx.shadowBlur = 24; ctx.shadowColor = 'rgba(255,176,32,.95)';
         ctx.fillStyle = '#ffb020';
         ctx.beginPath(); ctx.arc(0, 0, b.r, 0, Math.PI * 2); ctx.fill();
-      } else if (b.kind === 'circuit') {
-        ctx.shadowBlur = 11;
-        ctx.shadowColor = '#6ee7ff';
-        ctx.fillStyle = '#cbd5e1';
-        ctx.beginPath();
-        ctx.moveTo(0, -b.r * 1.15); ctx.lineTo(b.r * 0.95, 0); ctx.lineTo(0, b.r * 1.15); ctx.lineTo(-b.r * 0.95, 0); ctx.closePath(); ctx.fill();
-        ctx.globalAlpha = 0.72;
-        ctx.fillStyle = '#6ee7ff';
-        ctx.beginPath(); ctx.arc(0, 0, Math.max(1.4, b.r * 0.42), 0, Math.PI * 2); ctx.fill();
-        ctx.globalAlpha = 0.42;
-        ctx.strokeStyle = '#6ee7ff';
-        ctx.lineWidth = 1.1;
-        ctx.beginPath(); ctx.arc(0, 0, b.r + 4, 0, Math.PI * 2); ctx.stroke();
       } else if (b.kind === 'flare') {
         ctx.shadowBlur = 12; ctx.shadowColor = '#ff7b2f';
         ctx.fillStyle = '#ff7b2f';
@@ -5001,10 +4973,11 @@ function updateEnemies() {
         ctx.globalAlpha = 0.5; ctx.fillStyle = '#ffcc00';
         ctx.beginPath(); ctx.arc(0, 0, b.r * 0.5, 0, Math.PI * 2); ctx.fill();
       } else {
-        ctx.fillStyle = b.color || (b.kind === 'shotgun' ? '#ffd6e8' : charColor());
-        if (getBattleCharId() === 'sprouty') ctx.fillStyle = '#39ff14';
+        const bodyFill = isUltimateBullet ? rainbowBulletFill(ctx, b.r + 8) : (b.color || (b.kind === 'shotgun' ? '#ffd6e8' : charColor()));
+        ctx.fillStyle = bodyFill;
+        if (!isUltimateBullet && getBattleCharId() === 'sprouty') ctx.fillStyle = '#39ff14';
         ctx.shadowBlur = 6;
-        ctx.shadowColor = ctx.fillStyle;
+        ctx.shadowColor = isUltimateBullet ? '#ff5fe0' : ctx.fillStyle;
         if (b.effect === 'glitch') {
           ctx.globalAlpha = 0.55;
           ctx.fillStyle = '#ffffff';
@@ -5073,22 +5046,13 @@ function updateEnemies() {
   }
 
   function drawParticles() {
-    ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
     for (const p of particles) {
       if (p.x < -80 || p.x > W + 80 || p.y < -80 || p.y > H + 80) continue;
-      const a = clamp(p.life / 24, 0, 1);
-      ctx.globalAlpha = a;
-      ctx.shadowBlur = 10;
-      ctx.shadowColor = p.color;
+      if (p.x < -80 || p.x > W + 80 || p.y < -80 || p.y > H + 80) continue;
+      ctx.globalAlpha = clamp(p.life / 24, 0, 1);
       ctx.fillStyle = p.color;
       ctx.fillRect(p.x, p.y, p.size, p.size);
-      if (p.size > 2.2) {
-        ctx.globalAlpha = a * 0.35;
-        ctx.fillRect(p.x - 1, p.y - 1, p.size + 2, p.size + 2);
-      }
     }
-    ctx.restore();
     ctx.globalAlpha = 1;
   }
 
